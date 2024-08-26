@@ -75,14 +75,15 @@ def get_secret(secret_prefix="totesys-credentials"):
         for secret in get_secrets_lists_response['SecretList']:
             if secret['Name'].startswith(secret_prefix):
                 secret_name = secret['Name']
-        get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-        logging.info(f">>>> secret: {get_secret_value_response['SecretString']}")
-        logging.info(f">>>> created on: {get_secret_value_response['CreatedDate']}")
+                break
+        secret_value_response = client.get_secret_value(SecretId=secret_name)
+        logging.info(f">>>> secret: {secret_value_response['SecretString']}")
+        logging.info(f">>>> created on: {secret_value_response['CreatedDate']}")
     except ClientError as e:
         logging.error(e)
         raise Exception(f"Can't retrieve secret due to {e}")
 
-    return json.loads(get_secret_value_response["SecretString"])
+    return json.loads(secret_value_response["SecretString"])
 
 
 def connect_to_bucket(client):
