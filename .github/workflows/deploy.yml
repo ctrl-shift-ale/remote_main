@@ -44,6 +44,7 @@ jobs:
       - name: Run Tests
         run: make all
         env:
+          ENV: testing
           USER_NAME: myuser
           PASSWORD: mypassword
           HOST: localhost
