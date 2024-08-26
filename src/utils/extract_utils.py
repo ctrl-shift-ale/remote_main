@@ -76,8 +76,8 @@ def get_secret(secret_prefix="totesys-credentials"):
             if secret['Name'].startswith(secret_prefix):
                 secret_name = secret['Name']
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
-        logging.info(f'>>>> secret: {get_secret_value_response['SecretString']}')
-        logging.info(f'>>>> created on: {get_secret_value_response['CreatedDate']}')
+        logging.info(f">>>> secret: {get_secret_value_response['SecretString']}")
+        logging.info(f">>>> created on: {get_secret_value_response['CreatedDate']}")
     except ClientError as e:
         logging.error(e)
         raise Exception(f"Can't retrieve secret due to {e}")
