@@ -14,21 +14,21 @@ if env_file != "":
 
     #print(f'\n >>>> ENV: {os.getenv("ENV")}')
 
-    # env variables
-    if os.getenv("ENV") == "testing":
-        USER_NAME = os.getenv("PG_USER") 
-        PASSWORD = os.getenv("PG_PASSWORD")
-        DB_NAME = os.getenv("PG_DATABASE")
-        HOST = os.getenv("PG_HOST")
-        PORT = os.getenv("PG_PORT")
-    elif os.getenv("ENV") == "development":
-        USER_NAME = os.getenv("DB_USER")
-        PASSWORD = os.getenv("DB_PASSWORD")
-        DB_NAME = os.getenv("DB_NAME")
-        HOST = os.getenv("DB_HOST")
-        PORT = os.getenv("DB_PORT")
+# env variables
+if os.getenv("ENV") == "testing":
+    USER_NAME = os.getenv("PG_USER") 
+    PASSWORD = os.getenv("PG_PASSWORD")
+    DB_NAME = os.getenv("PG_DATABASE")
+    HOST = os.getenv("PG_HOST")
+    PORT = os.getenv("PG_PORT")
+elif os.getenv("ENV") == "development":
+    USER_NAME = os.getenv("DB_USER")
+    PASSWORD = os.getenv("DB_PASSWORD")
+    DB_NAME = os.getenv("DB_NAME")
+    HOST = os.getenv("DB_HOST")
+    PORT = os.getenv("DB_PORT")
 
-    print(f'\n >>>> USER_NAME: {USER_NAME}')
+print(f'\n >>>> USER_NAME: {USER_NAME}')
     
 # const
 SOURCE_PATH = "/source/"
