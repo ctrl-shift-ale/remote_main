@@ -35,7 +35,7 @@ class DummyContext:  # Dummy context class used for testing
     pass
 
 
-event = {"time_prefix": "YYYY/MM/DD/HH:MM:SS/"}
+event = {"time_path": "YYYY/MM/DD/HH:MM:SS/"}
 context = DummyContext()
 
 
