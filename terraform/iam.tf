@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "s3_list_all_buckets" {
 
 data "aws_iam_policy_document" "secrets_manager_access_secrets" {
   statement {
-    actions = ["secretsmanager:GetSecretValue"]
+    actions = ["secretsmanager:GetSecretValue", "secretsmanager:ListSecrets"]
 
     resources = ["*"]
   }

@@ -56,7 +56,7 @@ def create_time_based_path():
     return f"{year}/{month}/{day}/{hour}:{minute}:{second}/"
 
 
-def get_secret(secret_name="totesys-credentials"):
+def get_secret(secret_prefix="totesys-credentials"):
     """
     Initialises a boto3 secrets manager client and retrieves secret from secrets manager
     based on argument given, with the default argument set to the database credentials.
@@ -69,8 +69,12 @@ def get_secret(secret_name="totesys-credentials"):
     """
     session = boto3.session.Session()
     client = session.client(service_name="secretsmanager", region_name="eu-west-2")
-
+    
     try:
+        get_secrets_lists_response = client.list_secrets()
+        for secret in get_secrets_lists_response['SecretList']:
+            if secret['Name'].startswith(secret_prefix):
+                secret_name = secret['Name']
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
     except ClientError as e:
         logging.error(e)

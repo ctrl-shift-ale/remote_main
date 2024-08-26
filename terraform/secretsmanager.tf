@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "db_credentials_" {
-  name = "totesys-credentials"
+  name_prefix = "totesys-credentials-"
 }
 /*
 resource "aws_secretsmanager_secret" "dw_credentials_" {
