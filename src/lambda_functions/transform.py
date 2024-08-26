@@ -32,7 +32,7 @@ def lambda_handler(event, context):
     """
     s3_client = boto3.client("s3")
 
-    prefix = event["time_prefix"]
+    prefix = event["time_path"]
 
     _, processed_data_bucket = finds_data_buckets()
 
