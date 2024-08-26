@@ -1,7 +1,7 @@
 resource "aws_secretsmanager_secret" "db_credentials_" {
   name_prefix = "totesys-credentials-"
   tags = {
-      UniqueId  = "a" 
+      UniqueId  = "b" 
     }
 }
 /*
@@ -14,8 +14,8 @@ resource "aws_secretsmanager_secret_version" "db_credentials_" {
   secret_string = jsonencode({
     user = var.DB_UN
     password = var.DB_PW
-    host     = var.DB_NAME
-    database = var.DB_HT
+    host     = var.DB_HT
+    database = var.DB_NAME
     port     = var.DB_PT
   })
 
