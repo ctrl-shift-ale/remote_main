@@ -92,7 +92,8 @@ def lambda_handler(event, context):
                 in bucket_files
             )
             create_and_upload_csv(
-                file_data, s3_client, raw_data_bucket, data_table_name, first_call_bool
+                file_data, s3_client, raw_data_bucket, 
+                data_table_name, time_path, first_call_bool
             )
 
             if not first_call_bool:
@@ -110,7 +111,7 @@ def lambda_handler(event, context):
                 s3_client.upload_file(
                     Bucket=raw_data_bucket,
                     Filename=f"/tmp/{changes_csv}",
-                    Key=f"{HISTORY_PATH}{create_time_based_path()}{changes_csv}",
+                    Key=f"{HISTORY_PATH}{time_path}{changes_csv}",
                 )
 
                 # replace /source/*_new with /tmp/*_new

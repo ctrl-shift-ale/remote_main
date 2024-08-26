@@ -131,7 +131,7 @@ def query_db(dt_name, conn):
     return [header] + data_rows
 
 
-def create_and_upload_csv(data, client, bucket, tablename, first_call):
+def create_and_upload_csv(data, client, bucket, tablename, time_path, first_call):
     """
     Converts a table from a database into a CSV file and uploads that CSV file to either:
     - first_call == True ? bucket/source as *_new.csv , and history/y/m/d/hh:mm:ss/*_differences.csv
@@ -152,7 +152,7 @@ def create_and_upload_csv(data, client, bucket, tablename, first_call):
             client.put_object(
                 Body=file_to_save,
                 Bucket=bucket,
-                Key=f"{HISTORY_PATH}{create_time_based_path()}{tablename}{DIFFERENCES_FILE_SUFFIX}.csv",
+                Key=f"{HISTORY_PATH}{time_path}{tablename}{DIFFERENCES_FILE_SUFFIX}.csv",
             )
         else:
             with open(f'/tmp/{tablename}_new.csv', 'wb') as csvfile:

@@ -315,11 +315,13 @@ class TestCreateAndUploadCsv:
     ):
         patched_dt.now.return_value = dt(2024, 1, 1)
         patched_dt.side_effect = lambda *args, **kw: dt(*args, **kw)
+        time_path = create_time_based_path()
         bucket_name = MOCK_BUCKET_NAME
         file_name = "test_file"
         data = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
 
-        create_and_upload_csv(data, s3_empty_bucket, bucket_name, file_name, True)
+        create_and_upload_csv(data, s3_empty_bucket, bucket_name, 
+                              file_name, time_path, True)
 
         list_objects = s3_empty_bucket.list_objects_v2(Bucket=MOCK_BUCKET_NAME)[
             "Contents"
@@ -341,8 +343,9 @@ class TestCreateAndUploadCsv:
         bucket_name = MOCK_BUCKET_NAME
         dt_name = "test_dt"
         data = [["A", "B", "C"], [1, 2, 3], [4, 5, 6]]
-
-        create_and_upload_csv(data, s3_empty_bucket, bucket_name, dt_name, False)
+        time_path = create_time_based_path()
+        create_and_upload_csv(data, s3_empty_bucket, bucket_name, 
+                              dt_name, time_path,False)
 
         csv_path_list = [
             filename
