@@ -37,3 +37,34 @@ variable "python_runtime" {
   type    = string
   default = "python3.12"
 }
+
+# variables for secrets manager
+variable "DB_UN" {
+  description = "Database username"
+  type        = string
+  sensitive   = true # does not print to console
+}
+
+variable "DB_PW" {
+  description = "Database password"
+  type        = string
+  sensitive   = true
+}
+
+variable "DB_NAME" {
+  description = "Database name"
+  type        = string
+  sensitive   = true
+}
+
+variable "DB_HT" {
+  description = "Database host"
+  type        = string
+  sensitive   = true
+}
+
+variable "DB_PT" {
+  description = "Database port"
+  type        = string
+  sensitive   = true
+}

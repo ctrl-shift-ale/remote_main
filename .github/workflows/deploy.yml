@@ -1,4 +1,4 @@
-name: totesys-ETL
+name: remote_main
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
           done
       - name: Connect to database and seed test database
         run: |
-          PGPASSWORD=mypassword psql -h localhost -U myuser -d mydatabase -f database/test_db.sql
+          PASSWORD=mypassword psql -h localhost -U myuser -d mydatabase -f database/test_db.sql
       - name: Python Init
         uses: actions/setup-python@v5
         with:
@@ -44,11 +44,11 @@ jobs:
       - name: Run Tests
         run: make all
         env:
-          PG_USER: myuser
-          PG_PASSWORD: mypassword
-          PG_HOST: localhost
-          PG_DATABASE: test_totesys
-          PG_PORT: 5432
+          USER_NAME: myuser
+          PASSWORD: mypassword
+          HOST: localhost
+          DB_NAME: test_totesys
+          PORT: 5432
       - name: Install flake8
         run: pip install flake8
       - name: Run flake8
@@ -82,8 +82,6 @@ jobs:
         run: |
           echo "Listing all files in the repository:"
           ls 
-      - name: export dev .env
-        run: export $(xargs <.env.development)
       - name: Terraform install
         uses: hashicorp/setup-terraform@v3
       - name: AWS Credentials
@@ -98,18 +96,18 @@ jobs:
       - name: Terraform plan
         working-directory: terraform
         run: >
-          TF_VAR_UN=$DB_USERNAME 
-          TF_VAR_PW=$DB_PASSWORD 
-          TF_VAR_DB=$DB_NAME 
-          TF_VAR_HT=$DB_HOST 
-          TF_VAR_PT=$DB_PORT 
+          TF_VAR_DB_UN=${{ secrets.DB_USERNAME }}  
+          TF_VAR_DB_PW=${{ secrets.DB_PASSWORD }}  
+          TF_VAR_DB_NAME=${{ secrets.DB_NAME }} 
+          TF_VAR_DB_HT=${{ secrets.DB_HOST }} 
+          TF_VAR_DB_PT=${{ secrets.DB_PORT }} 
           terraform plan
       - name: Terraform apply
         working-directory: terraform
         run: >
-          TF_VAR_UN=$DB_USERNAME 
-          TF_VAR_PW=$DB_PASSWORD 
-          TF_VAR_DB=$DB_NAME 
-          TF_VAR_HT=$DB_HOST 
-          TF_VAR_PT=$DB_PORT 
+          TF_VAR_DB_UN=${{ secrets.DB_USERNAME }} 
+          TF_VAR_DB_PW=${{ secrets.DB_PASSWORD }} 
+          TF_VAR_DB_NAME=${{ secrets.DB_NAME }} 
+          TF_VAR_DB_HT=${{ secrets.DB_HOST }} 
+          TF_VAR_DB_PT=${{ secrets.DB_PORT }} 
           terraform apply --auto-approve
