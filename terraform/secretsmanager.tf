@@ -1,5 +1,8 @@
 resource "aws_secretsmanager_secret" "db_credentials_" {
   name_prefix = "totesys-credentials-"
+  tags = {
+      UniqueId  = "a" 
+    }
 }
 /*
 resource "aws_secretsmanager_secret" "dw_credentials_" {
