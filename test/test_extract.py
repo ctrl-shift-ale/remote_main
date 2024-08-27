@@ -28,7 +28,7 @@ elif os.getenv("ENV") == "development":
     HOST = os.getenv("DB_HOST")
     PORT = os.getenv("DB_PORT")
 
-print(f'\n >>>> USER_NAME: {USER_NAME}')
+#print(f'\n >>>> USER_NAME: {USER_NAME}')
     
 # const
 SOURCE_PATH = "/source/"
